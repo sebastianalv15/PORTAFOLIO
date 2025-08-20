@@ -899,6 +899,10 @@ body.light-theme .contact-form textarea {
   flex-direction: column;
   gap: 2rem;
   padding: 1rem 5%;
+  max-width: 1200px;    /* ancho máximo del contenedor */
+  margin: 0 auto;       /* centra horizontalmente */
+  box-sizing: border-box;
+  overflow-x: hidden;   /* evita scroll horizontal */
 }
 
 .proyecto-card {
@@ -907,35 +911,16 @@ body.light-theme .contact-form textarea {
   background: var(--card-bg);
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 5px 20px rgba(255, 0, 144, 0.2);
+  box-shadow: var(--primary-color);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   animation: slideIn 0.6s ease forwards;
   opacity: 0;
-}
-
-.proyecto-card:nth-child(1) { animation-delay: 0.2s; }
-.proyecto-card:nth-child(2) { animation-delay: 0.4s; }
-.proyecto-card:nth-child(3) { animation-delay: 0.6s; }
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-60px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.proyecto-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(255, 0, 144, 0.4);
+  width: 100%;          /* asegura que no se salga del contenedor */
+  flex-wrap: wrap;      /* permite que los elementos internos bajen en pantallas pequeñas */
 }
 
 .proyecto-img {
-  flex: 1;
-  min-width: 250px;
+  flex: 1 1 250px;      /* flex-grow:1, flex-shrink:1, base 250px */
   max-width: 350px;
   overflow: hidden;
 }
@@ -954,9 +939,10 @@ body.light-theme .contact-form textarea {
 }
 
 .proyecto-info {
-  flex: 2;
+  flex: 2 1 300px;      /* flex-grow:2, flex-shrink:1, base 300px */
   padding: 1.5rem;
   color: var(--text-color);
+  box-sizing: border-box;
 }
 
 .proyecto-info h3 {
@@ -972,6 +958,7 @@ body.light-theme .contact-form textarea {
 .proyecto-links {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;      /* evita que los botones se salgan en pantallas pequeñas */
 }
 
 .proyecto-links .btn {
@@ -988,7 +975,25 @@ body.light-theme .contact-form textarea {
   background: var(--btn-hover-bg);
 }
 
+/* Animaciones */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 /* Responsive */
+@media (max-width: 1024px) {
+  .proyecto-card {
+    flex-wrap: wrap;
+  }
+}
+
 @media (max-width: 768px) {
   .proyecto-card {
     flex-direction: column;
@@ -996,5 +1001,8 @@ body.light-theme .contact-form textarea {
   }
   .proyecto-img {
     max-width: 100%;
+  }
+  .proyecto-info {
+    width: 100%;
   }
 }
